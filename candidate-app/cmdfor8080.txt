@@ -1,0 +1,5 @@
+netstat -ano | findstr :8080
+
+then
+
+taskkill /PID typeyourPIDhere /F

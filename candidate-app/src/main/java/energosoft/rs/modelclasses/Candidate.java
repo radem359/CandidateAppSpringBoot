@@ -1,34 +1,61 @@
-package energosoft.rs.models;
+package energosoft.rs.modelclasses;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Candidate")
 public class Candidate{
+	
+	@Id
+	@Column(name = "candidateId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer candidateId;
 
-    private int candidateId;
-
+	@Column(name = "name")
     private String name;
 
+	@Column(name = "surname")
     private String surname;
 
+	@Column(name = "uniqueIdentificationNumber")
     private String uniqueIdentificationNumber;
 
+	@Column(name = "yearOfBirth")
     private int yearOfBirth;
 
+	@Column(name = "email")
     private String email;
 
+	@Column(name = "telephoneNumber")
     private String telephoneNumber;
 
+	@ManyToMany
+	@JoinTable(name = "Candidate_Concourse", joinColumns = {@JoinColumn(name = "candidateId")},
+											inverseJoinColumns = {@JoinColumn(name = "idConcourse")})
     private List<Concourse> concourses;
 
+	@Column(name = "note")
     private String note;
 
+	@Column(name = "isHired")
     private boolean isHired;
 
+	@Column(name = "lastChange")
     private String lastChange;
 
     public Candidate() { }
 
-    public Candidate(int candidateId, String name, String surname, String uniqueIdentificationNumber, int yearOfBirth, String email, String telephoneNumber, List<Concourse> concourses, String note, boolean isHired, String lastChange) {
+    public Candidate(Integer candidateId, String name, String surname, String uniqueIdentificationNumber, int yearOfBirth, String email, String telephoneNumber/*, List<Concourse> concourses*/, String note, boolean isHired, String lastChange) {
         this.candidateId = candidateId;
         this.name = name;
         this.surname = surname;
@@ -36,25 +63,25 @@ public class Candidate{
         this.yearOfBirth = yearOfBirth;
         this.email = email;
         this.telephoneNumber = telephoneNumber;
-        this.concourses = concourses;
+       //this.concourses = concourses;
         this.note = note;
         this.isHired = isHired;
         this.lastChange = lastChange;
     }
 
-    public List<Concourse> getConcourses() {
+    /*public List<Concourse> getConcourses() {
         return concourses;
     }
 
     public void setConcourses(List<Concourse> concourses) {
         this.concourses = concourses;
-    }
+    }*/
 
-    public int getCandidateId() {
+    public Integer getCandidateId() {
         return candidateId;
     }
 
-    public void setCandidateId(int candidateId) {
+    public void setCandidateId(Integer candidateId) {
         this.candidateId = candidateId;
     }
 
@@ -128,14 +155,6 @@ public class Candidate{
 
     public void setLastChange(String lastChange) {
         this.lastChange = lastChange;
-    }
-
-    @Override
-    public String toString() {
-        if(this.surname != null)
-            return this.name+" "+this.surname;
-        else
-            return this.name;
     }
 
 }

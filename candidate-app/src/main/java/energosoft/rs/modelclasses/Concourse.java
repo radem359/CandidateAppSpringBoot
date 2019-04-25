@@ -1,39 +1,51 @@
-package energosoft.rs.models;
+package energosoft.rs.modelclasses;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Concourse{
 
-    private int idConcourse;
+	@Id
+	@Column(name = "idConcourse")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idConcourse;
 
+	@Column(name = "job")
     private String job;
 
+	@Column(name = "jobCode")
     private String jobCode;
 
-    private List<Candidate> candidates;
+    //private List<Candidate> candidates;
 
     public Concourse(){}
 
-    public Concourse( int idConcourse, String job, String jobCode, List<Candidate> candidates) {
+    public Concourse( int idConcourse, String job, String jobCode/*, List<Candidate> candidates*/) {
         this.idConcourse = idConcourse;
-        this.candidates = candidates;
+        //this.candidates = candidates;
         this.job = job;
         this.jobCode = jobCode;
     }
 
-    public List<Candidate> getCandidates() {
+    /*public List<Candidate> getCandidates() {
         return candidates;
     }
 
     public void setCandidates(List<Candidate> candidates) {
         this.candidates = candidates;
-    }
+    }*/
 
-    public int getIdConcourse() {
+    public Integer getIdConcourse() {
         return idConcourse;
     }
 
-    public void setIdConcourse(int idConcourse) {
+    public void setIdConcourse(Integer idConcourse) {
         this.idConcourse = idConcourse;
     }
 
@@ -51,10 +63,5 @@ public class Concourse{
 
     public void setJobCode(String jobCode) {
         this.jobCode = jobCode;
-    }
-
-    @Override
-    public String toString() {
-        return this.job+" - "+this.jobCode;
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import energosoft.rs.models.Concourse;
+import energosoft.rs.modelclasses.Concourse;
 import energosoft.rs.services.ConcourseService;
 
 @RestController
@@ -39,8 +39,8 @@ public class ConcourseController {
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "/Concourses/{id}")
-	public boolean deleteConcourse(@PathVariable int id) {
-		return concourseService.deleteConcourse(id);
+	public void deleteConcourse(@PathVariable int id) {
+		concourseService.deleteConcourse(id);
 	}
 	
 }
