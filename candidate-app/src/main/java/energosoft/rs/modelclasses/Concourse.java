@@ -4,19 +4,18 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name="concourse")
 public class Concourse{
 
 	@Id
-	@Column(name = "idConcourse")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idConcourse;
+	@Column(name = "concourseId", unique=true)
+    private Integer concourseId;
 
 	@NotNull
 	@Column(name = "job")
@@ -31,8 +30,8 @@ public class Concourse{
 
     public Concourse(){}
 
-    public Concourse( int idConcourse, String job, String jobCode, List<Candidate> candidates) {
-        this.idConcourse = idConcourse;
+    public Concourse( int concourseId, String job, String jobCode, List<Candidate> candidates) {
+        this.concourseId = concourseId;
         this.candidates = candidates;
         this.job = job;
         this.jobCode = jobCode;
@@ -46,12 +45,12 @@ public class Concourse{
         this.candidates = candidates;
     }
 
-    public Integer getIdConcourse() {
-        return idConcourse;
+    public Integer getConcourseId() {
+        return concourseId;
     }
 
-    public void setIdConcourse(Integer idConcourse) {
-        this.idConcourse = idConcourse;
+    public void setConcourseId(Integer concourseId) {
+        this.concourseId = concourseId;
     }
 
     public String getJob() {

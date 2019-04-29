@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -14,12 +12,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "Candidate")
+@Table(name = "candidate")
 public class Candidate{
 	
 	@Id
-	@Column(name = "candidateId")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "candidateId", unique=true)
     private Integer candidateId;
 	
 	@NotNull
@@ -46,9 +43,9 @@ public class Candidate{
     private String telephoneNumber;
 
 	@ManyToMany
-	@JoinTable(name = "Candidate_Concourse", 
+	@JoinTable(name = "candidate_concourse", 
 			   joinColumns = {@JoinColumn(name = "candidateFk", referencedColumnName="candidateId")},
-			   inverseJoinColumns = {@JoinColumn(name = "concourseFk",referencedColumnName = "idConcourse")})
+			   inverseJoinColumns = {@JoinColumn(name = "concourseFk",referencedColumnName = "concourseId")})
     private List<Concourse> concourses;
 
 	@Column(name = "note")
@@ -64,7 +61,7 @@ public class Candidate{
 
     public Candidate() { }
 
-    public Candidate(Integer candidateId, String name, String surname, String uniqueIdentificationNumber, int yearOfBirth, String email, String telephoneNumber/*, List<Concourse> concourses*/, String note, boolean isHired, String lastChange) {
+    public Candidate(Integer candidateId, String name, String surname, String uniqueIdentificationNumber, int yearOfBirth, String email, String telephoneNumber, List<Concourse> concourses, String note, boolean isHired, String lastChange) {
         this.candidateId = candidateId;
         this.name = name;
         this.surname = surname;
@@ -72,19 +69,19 @@ public class Candidate{
         this.yearOfBirth = yearOfBirth;
         this.email = email;
         this.telephoneNumber = telephoneNumber;
-       //this.concourses = concourses;
+        this.concourses = concourses;
         this.note = note;
         this.isHired = isHired;
         this.lastChange = lastChange;
     }
 
-    /*public List<Concourse> getConcourses() {
+    public List<Concourse> getConcourses() {
         return concourses;
     }
 
     public void setConcourses(List<Concourse> concourses) {
         this.concourses = concourses;
-    }*/
+    }
 
     public Integer getCandidateId() {
         return candidateId;
