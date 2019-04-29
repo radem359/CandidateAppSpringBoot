@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Candidate")
@@ -20,36 +21,44 @@ public class Candidate{
 	@Column(name = "candidateId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer candidateId;
-
+	
+	@NotNull
 	@Column(name = "name")
     private String name;
 
 	@Column(name = "surname")
     private String surname;
 
+	@NotNull
 	@Column(name = "uniqueIdentificationNumber")
     private String uniqueIdentificationNumber;
 
+	@NotNull
 	@Column(name = "yearOfBirth")
     private int yearOfBirth;
 
+	@NotNull
 	@Column(name = "email")
     private String email;
 
+	@NotNull
 	@Column(name = "telephoneNumber")
     private String telephoneNumber;
 
 	@ManyToMany
-	@JoinTable(name = "Candidate_Concourse", joinColumns = {@JoinColumn(name = "candidateId")},
-											inverseJoinColumns = {@JoinColumn(name = "idConcourse")})
+	@JoinTable(name = "Candidate_Concourse", 
+			   joinColumns = {@JoinColumn(name = "candidateFk", referencedColumnName="candidateId")},
+			   inverseJoinColumns = {@JoinColumn(name = "concourseFk",referencedColumnName = "idConcourse")})
     private List<Concourse> concourses;
 
 	@Column(name = "note")
     private String note;
 
+	@NotNull
 	@Column(name = "isHired")
     private boolean isHired;
 
+	@NotNull
 	@Column(name = "lastChange")
     private String lastChange;
 
