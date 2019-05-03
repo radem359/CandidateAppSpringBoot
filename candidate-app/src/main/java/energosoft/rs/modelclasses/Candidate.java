@@ -1,7 +1,6 @@
 package energosoft.rs.modelclasses;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,12 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "candidate")
@@ -60,16 +60,10 @@ public class Candidate{
 	@Column(name = "last_change")
     private String lastChange;
 
-
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-                })
-    @JoinTable(name = "candidate_concourse", 
-      joinColumns = {@JoinColumn(name = "candidate_id")}, 
-      inverseJoinColumns = {@JoinColumn(name = "concourse_id")})
-    private List<Concourse> concourses= new ArrayList<Concourse>();
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "candidate_concourse")
+	@JsonIgnore
+    private Set<Concourse> concourses;
 
 	public Candidate() { }
 
@@ -168,12 +162,22 @@ public class Candidate{
 		this.lastChange = lastChange;
 	}
 
-	public List<Concourse> getConcourses() {
+	public Set<Concourse> getConcourses() {
 		return concourses;
 	}
 
-	public void setConcourses(List<Concourse> concourses) {
+	public void setConcourses(Set<Concourse> concourses) {
 		this.concourses = concourses;
 	}
+
+	@Override
+	public String toString() {
+		return "Candidate [id=" + id + ", name=" + name + ", surname=" + surname + ", uniqueIdentificationNumber="
+				+ uniqueIdentificationNumber + ", yearOfBirth=" + yearOfBirth + ", email=" + email
+				+ ", telephoneNumber=" + telephoneNumber + ", note=" + note + ", isHired=" + isHired + ", lastChange="
+				+ lastChange + ", concourses=" + concourses + "]";
+	}
+	
+	
 	
 }

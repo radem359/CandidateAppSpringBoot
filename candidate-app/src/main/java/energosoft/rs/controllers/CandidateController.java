@@ -3,44 +3,126 @@ package energosoft.rs.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import energosoft.rs.modelclasses.Candidate;
-import energosoft.rs.services.CandidateService;
+import energosoft.rs.services.CandidateServiceInterface;
 
 @RestController
+@RequestMapping("/Candidates")
 public class CandidateController {
 	
 	@Autowired
-	private CandidateService candidateService;
+	private CandidateServiceInterface candidateServiceInterface;
 	
-	@RequestMapping("/Candidates")
-	public List<Candidate> getAll() {
-		return candidateService.getAllCandidates();
+	/**
+	 * Returns a ResponseEntity with the body containing a page of Candidate objects.
+	 *
+	 * @param name
+	 *            Will return only students whose first name contains the value.
+	 * @param surname
+	 *            Will return only students whose last name contains the value.
+	 *
+	 * @return ResponseEntity with the body containing a page of Candidate objects.
+	 * @see Candidate
+	 */
+	@GetMapping
+	public ResponseEntity<List<Candidate>> getAll(@RequestParam(value = "name", defaultValue = "") String name,
+			@RequestParam(value = "surname", defaultValue = "") String surname) {
+		return candidateServiceInterface.findAll(name, surname);
 	}
 	
-	@RequestMapping("/Candidates/{id}")
-	public Candidate getCandidate(@PathVariable int id) {
-		return candidateService.getCandidate(id);
+	/**
+	 * Returns a Candidate object based on the given id.
+	 *
+	 * @param id
+	 *            Identifier of the Candidate
+	 * @return ResponseEntity with the body containing the Candidate with the given
+	 *         id, or no body.
+	 * @see Candidate
+	 */
+	@GetMapping("/{id}")
+	public ResponseEntity getOne(@PathVariable("id") Integer id) {
+		return candidateServiceInterface.findOne(id);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/Candidates")
-	public void addCandidate(@RequestBody Candidate candidate) {
-		candidateService.addCandidate(candidate);
+	/**
+	 * Creates a Candidate object.
+	 *
+	 * @param candidate
+	 *            Candidate to be created.
+	 * @return ResponseEntity with the body containing the created Candidate or an
+	 *         Error object, or no body.
+	 * @see Candidate, Error
+	 */
+	@PostMapping
+	public ResponseEntity addCandidate(@RequestBody Candidate candidate, Errors errors) {
+		if(errors.hasErrors()) {
+			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+		}
+		return candidateServiceInterface.create(candidate);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, value = "/Candidates/{id}")
-	public void updateCandidate(@RequestBody Candidate candidate, @PathVariable int id) {
-		candidateService.updateCandidate(candidate, id);
+	/**
+	 * Updates and returns a Candidate object.
+	 *
+	 * @param id
+	 *            identifier of the Candidate to be updated.
+	 * @param candidate
+	 *            Candidate containing the update information.
+	 * @return ResponseEntity with the body containing the updated Candidate object or
+	 *         an Error, or no body.
+	 * @see Candidate, Error
+	 */
+	@PutMapping("/{id}")
+	public ResponseEntity updateCandidate(@PathVariable("id") Integer id, @RequestBody Candidate candidate,
+			Errors errors) {
+		if(errors.hasErrors())
+			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+		if(candidate.getId() != id)
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		else {
+			return candidateServiceInterface.update(candidate);
+		}
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/Candidates/{id}")
-	public void deleteCandidate(@PathVariable int id) {
-		candidateService.deleteCandidate(id);
+	/**
+	 * Deletes a Candidate with the given id.
+	 *
+	 * @param id
+	 *            Identifier of the Candidate to be deleted.
+	 * @return ResponseEntity with no body.
+	 */
+	@DeleteMapping("/{id}")
+	public void deleteCandidate(@PathVariable("id") Integer id) {
+		candidateServiceInterface.delete(id);
+	}
+	
+	/**
+	 * Returns a ResponseEntity with the body containing a Set of Concourse objects
+	 * for the given Candidate id.
+	 *
+	 * @param id
+	 *            Identifier of the Concourse.
+	 *
+	 * @return ResponseEntity with the body containing a Set of Concourse objects, or
+	 *         no body.
+	 * @see Candidate, Concourse
+	 */
+	@GetMapping("/{id}/concourses")
+	public ResponseEntity getPredmeti(@PathVariable("id") Integer id) {
+		return candidateServiceInterface.getCandidateConcourses(id);
 	}
 	
 }

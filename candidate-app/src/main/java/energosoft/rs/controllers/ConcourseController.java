@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import energosoft.rs.modelclasses.Concourse;
-import energosoft.rs.services.ConcourseService;
+import energosoft.rs.services.impl.ConcourseService;
 
 @RestController
 public class ConcourseController {

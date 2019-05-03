@@ -1,4 +1,4 @@
-package energosoft.rs.services;
+package energosoft.rs.services.impl;
 
 import java.util.List;
 

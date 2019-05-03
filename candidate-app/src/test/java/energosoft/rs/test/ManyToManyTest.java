@@ -8,8 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import energosoft.rs.modelclasses.Candidate;
 import energosoft.rs.modelclasses.Concourse;
-import energosoft.rs.repository.CandidateRepository;
-import energosoft.rs.repository.ConcourseRepository;
+import energosoft.rs.services.impl.CandidateService;
+import energosoft.rs.services.impl.ConcourseService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,16 +18,13 @@ public class ManyToManyTest {
 	//https://www.javainuse.com/spring/springboot_testcases
 	
 	@Autowired
-    private CandidateRepository candidateRepository;
-
+    private CandidateService candidateService;
+    
     @Autowired
-    private ConcourseRepository concourseRepository;
-
+    private ConcourseService concourseService;
+    
     @Test
     public void run(String... args) throws Exception {
-        // Cleanup the tables
-        concourseRepository.deleteAll();
-        candidateRepository.deleteAll();
 
         // =======================================
 
@@ -47,7 +44,7 @@ public class ManyToManyTest {
         concourse1.getCandidates().add(candidate);
         concourse2.getCandidates().add(candidate);
 
-        candidateRepository.save(candidate);
+        candidateService.create(candidate);
 
         // =======================================
 

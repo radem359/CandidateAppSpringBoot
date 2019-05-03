@@ -1,7 +1,6 @@
 package energosoft.rs.modelclasses;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="concourse")
@@ -30,12 +31,9 @@ public class Concourse{
 	@Column(name = "job_code")
     private String jobCode;
 
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-                },mappedBy = "concourses")
-    private List<Candidate> candidates = new ArrayList<Candidate>();
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "concourses")
+	@JsonIgnore
+    private Set<Candidate> candidates;
 
     public Concourse(){}
 
@@ -44,11 +42,11 @@ public class Concourse{
         this.jobCode = jobCode;
     }
 
-    public List<Candidate> getCandidates() {
+    public Set<Candidate> getCandidates() {
         return candidates;
     }
 
-    public void setCandidates(List<Candidate> candidates) {
+    public void setCandidates(Set<Candidate> candidates) {
         this.candidates = candidates;
     }
 
@@ -75,4 +73,12 @@ public class Concourse{
     public void setJobCode(String jobCode) {
         this.jobCode = jobCode;
     }
+
+	@Override
+	public String toString() {
+		return "Concourse [id=" + id + ", job=" + job + ", jobCode=" + jobCode + ", candidates=" + candidates + "]";
+	}
+    
+    
+    
 }
