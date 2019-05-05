@@ -19,32 +19,12 @@ public class CandidateService implements CandidateServiceInterface {
 	@Autowired
 	private CandidateRepository candidateRepository;
 
-	/**
-	 * Returns a ResponseEntity with the body containing a page of Candidate objects.
-	 *
-	 * @param name
-	 *            Will return only students whose first name contains the value.
-	 * @param surname
-	 *            Will return only students whose last name contains the value.
-	 *
-	 * @return ResponseEntity with the body containing a page of Candidate objects.
-	 * @see Candidate
-	 */
 	@Override
 	public ResponseEntity<List<Candidate>> findAll(String name, String surname) {
 		List<Candidate> candidates = (List<Candidate>) candidateRepository.findAllByNameIgnoreCaseContainsAndSurnameIgnoreCaseContains(name, surname);
 		return new ResponseEntity<>(candidates, HttpStatus.OK);
 	}
 
-	/**
-	 * Returns a Candidate object based on the given id.
-	 *
-	 * @param id
-	 *            Identifier of the Candidate
-	 * @return ResponseEntity with the body containing the Candidate with the given
-	 *         id, or no body.
-	 * @see Candidate
-	 */
 	@Override
 	public ResponseEntity<Candidate> findOne(Integer id) {
 		Candidate candidate = candidateRepository.findById(id).orElse(null);
@@ -54,28 +34,11 @@ public class CandidateService implements CandidateServiceInterface {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
-	/**
-	 * Creates a Candidate object.
-	 *
-	 * @param candidate
-	 *            Candidate to be created.
-	 * @return ResponseEntity with the body containing the created Candidate.
-	 * @see Candidate
-	 */
 	@Override
 	public ResponseEntity<Candidate> create(Candidate candidate) {
 		return new ResponseEntity<Candidate>(candidateRepository.save(candidate), HttpStatus.CREATED);
 	}
 
-	/**
-	 * Updates an existing Candidate object and returns it.
-	 *
-	 * @param candidate
-	 *            Candidate containing the update information.
-	 * @return ResponseEntity with the body containing the updated Candidate object or
-	 *         no body.
-	 * @see Candidate
-	 */
 	@Override
 	public ResponseEntity<Candidate> update(Candidate candidate) {
 		Candidate candidateTemp = candidateRepository.findById(candidate.getId()).orElse(null);
@@ -86,13 +49,6 @@ public class CandidateService implements CandidateServiceInterface {
 		}
 	}
 
-	/**
-	 * Deletes a Candidate with the given id.
-	 *
-	 * @param id
-	 *            identifier of the User to be deleted
-	 * @return ResponseEntity with no body.
-	 */
 	@Override
 	public ResponseEntity<Void> delete(Integer id) {
 		if(candidateRepository.findById(id) != null) {
@@ -103,17 +59,6 @@ public class CandidateService implements CandidateServiceInterface {
 		}
 	}
 
-	/**
-	 * Returns a ResponseEntity with the body containing a Set of Concourse objects
-	 * for the given Candidate id.
-	 *
-	 * @param id
-	 *            Identifier of the Concourse.
-	 *
-	 * @return ResponseEntity with the body containing a Set of Concourse objects, or
-	 *         no body.
-	 * @see Candidate, Concourse
-	 */
 	@Override
 	public ResponseEntity<Set<Concourse>> getCandidateConcourses(Integer candidateId) {
 		Candidate candidate = candidateRepository.findById(candidateId).orElse(null);

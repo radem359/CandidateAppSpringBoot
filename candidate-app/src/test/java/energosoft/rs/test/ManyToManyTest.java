@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import energosoft.rs.modelclasses.Candidate;
 import energosoft.rs.modelclasses.Concourse;
 import energosoft.rs.services.impl.CandidateService;
-import energosoft.rs.services.impl.ConcourseService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,9 +18,6 @@ public class ManyToManyTest {
 	
 	@Autowired
     private CandidateService candidateService;
-    
-    @Autowired
-    private ConcourseService concourseService;
     
     @Test
     public void run(String... args) throws Exception {
@@ -36,7 +32,7 @@ public class ManyToManyTest {
         Concourse concourse2 = new Concourse("ASP .NET Developer", "ASPNETDev");
 
 
-        // Add tag references in the post
+        // Add tag references in the candidate
         candidate.getConcourses().add(concourse1);
         candidate.getConcourses().add(concourse2);
 

@@ -21,7 +21,5 @@ public interface CandidateServiceInterface {
 	ResponseEntity<Void> delete(Integer id);
 	
 	ResponseEntity<Set<Concourse>> getCandidateConcourses(Integer candidateId);
-
-	//ResponseEntity<Candidate> save(Candidate candidate);
 	
 }

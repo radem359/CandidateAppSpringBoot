@@ -30,10 +30,11 @@ public class CandidateController {
 	 * Returns a ResponseEntity with the body containing a page of Candidate objects.
 	 *
 	 * @param name
-	 *            Will return only students whose first name contains the value.
+	 *            If included, will return only candidates whose first name contains
+	 *            the value.
 	 * @param surname
-	 *            Will return only students whose last name contains the value.
-	 *
+	 *            If included, will return only candidates whose last name contains
+	 *            the value.
 	 * @return ResponseEntity with the body containing a page of Candidate objects.
 	 * @see Candidate
 	 */
@@ -47,7 +48,7 @@ public class CandidateController {
 	 * Returns a Candidate object based on the given id.
 	 *
 	 * @param id
-	 *            Identifier of the Candidate
+	 *            Identifier of the Candidate.
 	 * @return ResponseEntity with the body containing the Candidate with the given
 	 *         id, or no body.
 	 * @see Candidate
@@ -114,14 +115,13 @@ public class CandidateController {
 	 * for the given Candidate id.
 	 *
 	 * @param id
-	 *            Identifier of the Concourse.
+	 *            Identifier of the Candidate.
 	 *
-	 * @return ResponseEntity with the body containing a Set of Concourse objects, or
-	 *         no body.
+	 * @return ResponseEntity with the body containing a Set of Concourse objects.
 	 * @see Candidate, Concourse
 	 */
 	@GetMapping("/{id}/concourses")
-	public ResponseEntity getPredmeti(@PathVariable("id") Integer id) {
+	public ResponseEntity getCandidateConcourses(@PathVariable("id") Integer id) {
 		return candidateServiceInterface.getCandidateConcourses(id);
 	}
 	
