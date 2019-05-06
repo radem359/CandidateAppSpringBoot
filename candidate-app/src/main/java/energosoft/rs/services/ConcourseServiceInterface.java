@@ -22,4 +22,8 @@ public interface ConcourseServiceInterface {
 	
 	ResponseEntity<Set<Candidate>> getConcourseCandidate(Integer concourseId);
 	
+	ResponseEntity<Concourse> addCandidates(Integer id, List<Integer> candidates);
+	
+	Set<Candidate> getCandidates(List<Integer> candidates);
+	
 }
