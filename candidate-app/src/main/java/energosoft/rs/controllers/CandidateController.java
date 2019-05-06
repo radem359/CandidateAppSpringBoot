@@ -120,9 +120,27 @@ public class CandidateController {
 	 * @return ResponseEntity with the body containing a Set of Concourse objects.
 	 * @see Candidate, Concourse
 	 */
-	@GetMapping("/{id}/concourses")
+	@GetMapping("/{id}/Concourses")
 	public ResponseEntity getCandidateConcourses(@PathVariable("id") Integer id) {
 		return candidateServiceInterface.getCandidateConcourses(id);
+	}
+	
+	/**
+	 * Replaces the concourses property of the Candidate object with the given id. The
+	 * property will be replaced by a Set of Concourse objects with the given
+	 * identifiers.
+	 *
+	 * @param id
+	 *            Identifier of the Candidate.
+	 * @param concourses
+	 *            List of Integer values, each representing a Concourse id.
+	 * 
+	 * @return ResponseEntity with the body containing the Candidate object.
+	 * @see Concourse, Candidate
+	 */
+	@PostMapping("/{id}/Concourses")
+	public ResponseEntity postCandidateConcourses(@PathVariable("id") Integer id, @RequestBody List<Integer> concourses) {
+		return candidateServiceInterface.addConcourses(id, concourses);
 	}
 	
 }

@@ -118,7 +118,7 @@ public class ConcourseController {
 	 * @return ResponseEntity with the body containing a Set of Candidate objects.
 	 * @see Concourse, Candidate
 	 */
-	@GetMapping("/{id}/candidates")
+	@GetMapping("/{id}/Candidates")
 	public ResponseEntity getConcourseCandidate(@PathVariable("id") Integer id) {
 		return concourseServiceInterface.getConcourseCandidate(id);
 	}

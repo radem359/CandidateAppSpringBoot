@@ -1,5 +1,6 @@
 package energosoft.rs.services.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,9 @@ public class CandidateService implements CandidateServiceInterface {
 	
 	@Autowired
 	private CandidateRepository candidateRepository;
+	
+	@Autowired
+	private ConcourseService concourseService;
 
 	@Override
 	public ResponseEntity<List<Candidate>> findAll(String name, String surname) {
@@ -67,5 +71,32 @@ public class CandidateService implements CandidateServiceInterface {
 		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+
+	@Override
+	public ResponseEntity<Candidate> addConcourses(Integer id, List<Integer> concourses) {
+		Candidate candidate = candidateRepository.findById(id).orElse(null);
+		if(candidate != null) {
+			candidate.getConcourses().forEach(con -> con.getCandidates().remove(candidate));
+			candidate.setConcourses(getConcourses(concourses));
+			candidate.getConcourses().forEach(con -> con.getCandidates().add(candidate));
+			return new ResponseEntity<>(candidateRepository.save(candidate), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@Override
+	public Set<Concourse> getConcourses(List<Integer> concourses) {
+		Set<Concourse> concouseSet = new HashSet<Concourse>();
+		for(Integer c : concourses) {
+			Concourse concourse = concourseService.findOne(c).getBody();
+			if(concourse != null) {
+				concouseSet.add(concourse);
+			}
+		}
+		return concouseSet;
+	}
+	
+	
 	
 }
