@@ -19,24 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 import energosoft.rs.modelclasses.Candidate;
 import energosoft.rs.services.CandidateServiceInterface;
 
+/**
+ * The Class CandidateController.
+ */
 @RestController
 @RequestMapping("/Candidates")
 public class CandidateController {
 	
+	/** The candidate service interface. */
 	@Autowired
 	private CandidateServiceInterface candidateServiceInterface;
 	
 	/**
-	 * Returns a ResponseEntity with the body containing a page of Candidate objects.
+	 * Gets the all.
 	 *
-	 * @param name
-	 *            If included, will return only candidates whose first name contains
-	 *            the value.
-	 * @param surname
-	 *            If included, will return only candidates whose last name contains
-	 *            the value.
-	 * @return ResponseEntity with the body containing a page of Candidate objects.
-	 * @see Candidate
+	 * @param name the name
+	 * @param surname the surname
+	 * @return the all
 	 */
 	@GetMapping
 	public ResponseEntity<List<Candidate>> getAll(@RequestParam(value = "name", defaultValue = "") String name,
@@ -45,13 +44,10 @@ public class CandidateController {
 	}
 	
 	/**
-	 * Returns a Candidate object based on the given id.
+	 * Gets the one.
 	 *
-	 * @param id
-	 *            Identifier of the Candidate.
-	 * @return ResponseEntity with the body containing the Candidate with the given
-	 *         id, or no body.
-	 * @see Candidate
+	 * @param id the id
+	 * @return the one
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity getOne(@PathVariable("id") Integer id) {
@@ -59,13 +55,11 @@ public class CandidateController {
 	}
 	
 	/**
-	 * Creates a Candidate object.
+	 * Adds the candidate.
 	 *
-	 * @param candidate
-	 *            Candidate to be created.
-	 * @return ResponseEntity with the body containing the created Candidate or an
-	 *         Error object, or no body.
-	 * @see Candidate, Error
+	 * @param candidate the candidate
+	 * @param errors the errors
+	 * @return the response entity
 	 */
 	@PostMapping
 	public ResponseEntity addCandidate(@RequestBody Candidate candidate, Errors errors) {
@@ -76,15 +70,12 @@ public class CandidateController {
 	}
 	
 	/**
-	 * Updates and returns a Candidate object.
+	 * Update candidate.
 	 *
-	 * @param id
-	 *            identifier of the Candidate to be updated.
-	 * @param candidate
-	 *            Candidate containing the update information.
-	 * @return ResponseEntity with the body containing the updated Candidate object or
-	 *         an Error, or no body.
-	 * @see Candidate, Error
+	 * @param id the id
+	 * @param candidate the candidate
+	 * @param errors the errors
+	 * @return the response entity
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity updateCandidate(@PathVariable("id") Integer id, @RequestBody Candidate candidate,
@@ -99,11 +90,9 @@ public class CandidateController {
 	}
 	
 	/**
-	 * Deletes a Candidate with the given id.
+	 * Delete candidate.
 	 *
-	 * @param id
-	 *            Identifier of the Candidate to be deleted.
-	 * @return ResponseEntity with no body.
+	 * @param id the id
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteCandidate(@PathVariable("id") Integer id) {
@@ -111,14 +100,10 @@ public class CandidateController {
 	}
 	
 	/**
-	 * Returns a ResponseEntity with the body containing a Set of Concourse objects
-	 * for the given Candidate id.
+	 * Gets the candidate concourses.
 	 *
-	 * @param id
-	 *            Identifier of the Candidate.
-	 *
-	 * @return ResponseEntity with the body containing a Set of Concourse objects.
-	 * @see Candidate, Concourse
+	 * @param id the id
+	 * @return the candidate concourses
 	 */
 	@GetMapping("/{id}/Concourses")
 	public ResponseEntity getCandidateConcourses(@PathVariable("id") Integer id) {
@@ -126,17 +111,11 @@ public class CandidateController {
 	}
 	
 	/**
-	 * Replaces the concourses property of the Candidate object with the given id. The
-	 * property will be replaced by a Set of Concourse objects with the given
-	 * identifiers.
+	 * Post candidate concourses.
 	 *
-	 * @param id
-	 *            Identifier of the Candidate.
-	 * @param concourses
-	 *            List of Integer values, each representing a Concourse id.
-	 * 
-	 * @return ResponseEntity with the body containing the Candidate object.
-	 * @see Concourse, Candidate
+	 * @param id the id
+	 * @param concourses the concourses
+	 * @return the response entity
 	 */
 	@PostMapping("/{id}/Concourses")
 	public ResponseEntity postCandidateConcourses(@PathVariable("id") Integer id, @RequestBody List<Integer> concourses) {

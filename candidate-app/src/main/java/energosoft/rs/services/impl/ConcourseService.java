@@ -14,21 +14,39 @@ import energosoft.rs.modelclasses.Concourse;
 import energosoft.rs.repository.ConcourseRepository;
 import energosoft.rs.services.ConcourseServiceInterface;
 
+/**
+ * The Class ConcourseService.
+ */
 @Service
 public class ConcourseService implements ConcourseServiceInterface{
 	
+	/** The concourse repository. */
 	@Autowired
 	private ConcourseRepository concourseRepository;
 	
+	/** The candidate service. */
 	@Autowired
 	private CandidateService candidateService;
 
+	/**
+	 * Find all.
+	 *
+	 * @param job the job
+	 * @param jobCode the job code
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<List<Concourse>> findAll(String job, String jobCode) {
 		List<Concourse> concourses = (List<Concourse>)concourseRepository.findAllByJobIgnoreCaseContainsAndJobCodeIgnoreCaseContains(job, jobCode);
 		return new ResponseEntity<>(concourses, HttpStatus.OK);
 	}
 
+	/**
+	 * Find one.
+	 *
+	 * @param id the id
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<Concourse> findOne(Integer id) {
 		Concourse concourse = concourseRepository.findById(id).orElse(null);
@@ -38,11 +56,23 @@ public class ConcourseService implements ConcourseServiceInterface{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param concourse the concourse
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<Concourse> create(Concourse concourse) {
 		return new ResponseEntity<Concourse>(concourseRepository.save(concourse), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param concourse the concourse
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<Concourse> update(Concourse concourse) {
 		Concourse concourseTemp = concourseRepository.findById(concourse.getId()).orElse(null);
@@ -52,6 +82,12 @@ public class ConcourseService implements ConcourseServiceInterface{
 			return new ResponseEntity<Concourse>(concourseRepository.save(concourse), HttpStatus.OK);
 	}
 
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<Void> delete(Integer id) {
 		if(concourseRepository.findById(id) != null) {
@@ -62,6 +98,12 @@ public class ConcourseService implements ConcourseServiceInterface{
 		}
 	}
 
+	/**
+	 * Gets the concourse candidate.
+	 *
+	 * @param concourseId the concourse id
+	 * @return the concourse candidate
+	 */
 	@Override
 	public ResponseEntity<Set<Candidate>> getConcourseCandidate(Integer concourseId) {
 		Concourse concourse = concourseRepository.findById(concourseId).orElse(null);
@@ -71,6 +113,13 @@ public class ConcourseService implements ConcourseServiceInterface{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	/**
+	 * Adds the candidates.
+	 *
+	 * @param id the id
+	 * @param candidates the candidates
+	 * @return the response entity
+	 */
 	@Override
 	public ResponseEntity<Concourse> addCandidates(Integer id, List<Integer> candidates) {
 		Concourse concourse = concourseRepository.findById(id).orElse(null);
@@ -84,6 +133,12 @@ public class ConcourseService implements ConcourseServiceInterface{
 		}
 	}
 
+	/**
+	 * Gets the candidates.
+	 *
+	 * @param candidates the candidates
+	 * @return the candidates
+	 */
 	@Override
 	public Set<Candidate> getCandidates(List<Integer> candidates) {
 		Set<Candidate> candidatesSet = new HashSet<Candidate>();
