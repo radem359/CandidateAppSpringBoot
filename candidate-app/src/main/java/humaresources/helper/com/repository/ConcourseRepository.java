@@ -1,11 +1,11 @@
-package energosoft.rs.repository;
+package humaresources.helper.com.repository;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import energosoft.rs.modelclasses.Candidate;
-import energosoft.rs.modelclasses.Concourse;
+import humaresources.helper.com.entities.Candidate;
+import humaresources.helper.com.entities.Concourse;
 
 public interface ConcourseRepository extends CrudRepository<Concourse, Integer>{
 	

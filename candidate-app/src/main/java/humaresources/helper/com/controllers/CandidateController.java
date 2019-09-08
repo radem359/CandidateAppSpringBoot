@@ -1,4 +1,4 @@
-package energosoft.rs.controllers;
+package humaresources.helper.com.controllers;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import energosoft.rs.modelclasses.Candidate;
-import energosoft.rs.services.CandidateServiceInterface;
+import humaresources.helper.com.entities.Candidate;
+import humaresources.helper.com.services.CandidateServiceInterface;
 
 @RestController
 @RequestMapping("/Candidates")

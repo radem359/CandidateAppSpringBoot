@@ -1,4 +1,4 @@
-package energosoft.rs.services.impl;
+package humaresources.helper.com.services.impl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import energosoft.rs.modelclasses.Candidate;
-import energosoft.rs.modelclasses.Concourse;
-import energosoft.rs.repository.ConcourseRepository;
-import energosoft.rs.services.ConcourseServiceInterface;
+import humaresources.helper.com.entities.Candidate;
+import humaresources.helper.com.entities.Concourse;
+import humaresources.helper.com.repository.ConcourseRepository;
+import humaresources.helper.com.services.ConcourseServiceInterface;
 
 @Service
 public class ConcourseService implements ConcourseServiceInterface{

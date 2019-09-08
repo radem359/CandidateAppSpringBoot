@@ -1,4 +1,4 @@
-package energosoft.rs.controllers;
+package humaresources.helper.com.controllers;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import energosoft.rs.modelclasses.Concourse;
-import energosoft.rs.services.ConcourseServiceInterface;
+import humaresources.helper.com.entities.Concourse;
+import humaresources.helper.com.services.ConcourseServiceInterface;
 
 @RestController
 @RequestMapping("/Concourses")

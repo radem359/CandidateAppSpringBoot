@@ -1,4 +1,4 @@
-package energosoft.rs.modelclasses;
+package humaresources.helper.com.entities;
 
 import java.util.Set;
 

@@ -1,12 +1,12 @@
-package energosoft.rs.services;
+package humaresources.helper.com.services;
 
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
 
-import energosoft.rs.modelclasses.Candidate;
-import energosoft.rs.modelclasses.Concourse;
+import humaresources.helper.com.entities.Candidate;
+import humaresources.helper.com.entities.Concourse;
 
 public interface CandidateServiceInterface {
 	
