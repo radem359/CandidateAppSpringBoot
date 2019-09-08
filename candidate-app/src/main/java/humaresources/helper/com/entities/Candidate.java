@@ -60,9 +60,7 @@ public class Candidate{
 	@Column(name = "last_change")
     private String lastChange;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "candidate_concourse")
-	@JsonIgnore
+	@ManyToMany(mappedBy="candidates")
     private Set<Concourse> concourses;
 
 	public Candidate() { }
